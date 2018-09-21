@@ -1,0 +1,87 @@
+﻿@using SchedulingBlocks.Models.AppDb
+@model Reservation
+
+
+<div id="content">
+        <table class="table table-striped visible-xs xs_cart">
+            <tbody>
+                @if (Model.ReservedSlots.Any())
+                {
+                    foreach (var slot in Model.ReservedSlots)
+                    {
+                        <tr>
+                            <td class="text-center">
+                                <h4 class="line-item">
+                                    <span>@slot.Facility</span>:&nbsp;
+                                    <span>@slot.StartTime.ToString("MMMM dd h:mmtt")</span>&nbsp;-&nbsp;
+                                    <span>@slot.EndTime.ToString("h:mmtt")</span>
+                                    <span class="cart-item-id" style="display: none">@slot.CartItemId</span>
+                                </h4>
+                                <button id="remove_slot" class="btn btn-danger btn-sm btn-block cart_action trash-btn"><i class="fa fa-trash-o"></i></button>								
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td class="text-center"><strong>Total $@Model.OrderTotal</strong></td>
+                </tr>
+                <tr>
+                    <td><a href="/" class="btn btn-warning btn-block continue-btn"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+                </tr>
+                <tr>
+                    <td>
+                        @if (Model.ReservedSlots.Any())
+                        { 
+                            <a class="btn btn-success btn-block checkout-btn">Checkout <i class="fa fa-angle-right"></i></a>
+                        }
+                        <a class="btn btn-success btn-block update-btn">Update Cart <i class="fa fa-angle-right"></i></a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <table class="table table-striped table-condensed hidden-xs">
+            <tbody>
+                @if (Model.ReservedSlots.Any())
+                {
+                    foreach (var slot in Model.ReservedSlots)
+                    {
+                        var price = slot.GetSlotPrice(Model.PricePer);
+                        <tr>
+                            <td>
+                                <h4 class="line-item">
+                                    <span>@slot.Facility</span>:&nbsp;
+                                    <span>@slot.StartTime.ToString("MMMM dd h:mmtt")</span>&nbsp;-&nbsp;
+                                    <span>@slot.EndTime.ToString("h:mmtt")</span>
+                                    <span class="cart-item-id" style="display: none">@slot.CartItemId</span>
+                                </h4>
+                            </td>
+                            <td class="text-right"><span>$@price</span></td>
+                            <td>
+                                <button id="remove_slot" class="btn btn-danger btn-sm cart_action trash-btn"><i class="fa fa-trash-o"></i></button>								
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+            <tfoot class="cart-footer">
+                <tr>
+                    <td><a href="/" class="btn btn-warning continue-btn"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+                    <td class="text-right">TOTAL: $@Model.OrderTotal</td>
+                    <td>
+                        @if (Model.ReservedSlots.Count() > 0)
+                        { 
+                            <a class="btn btn-success btn-block checkout-btn">Checkout <i class="fa fa-angle-right"></i></a>
+                        }
+                        <a class="btn btn-success btn-block update-btn">Update Cart <i class="fa fa-angle-right"></i></a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+</div>
+<script>
+    $(document).ready(function () {
+        Cart.Init();
+    });
+</script>

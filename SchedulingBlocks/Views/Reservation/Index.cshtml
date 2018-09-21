@@ -1,0 +1,71 @@
+﻿@model SchedulingBlocks.Models.CartModel
+
+@{ Html.RenderPartial("MiniCart", Model); }
+
+<div class="container" id="content">
+
+</div>
+<!-- Modal -->
+<div class="modal fade" id="introModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Scheduling</h4>
+      </div>
+      <div class="modal-body">
+          <p>
+              Book time slots by following these steps:
+          </p>
+          <p>
+              1. Select a day<br/>
+              2. Select 1 or more time slots, and add them to your cart<br/>
+              3. Proceed to checkout, or return to the calendar to select more time slots
+          </p>
+          <p>
+              The email you enter during checkout will be used to send you an access code for the facility.
+          </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="invalidCartModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Scheduling</h4>
+      </div>
+      <div class="modal-body">
+          <p>
+              We're sorry. You're shopping cart was invalid, possibly due to another customer reserving the same time slot. Please try again.
+          </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+    $(document).ready(function () {
+        Days.Init();
+        var invalidCart = '@(TempData["InvalidCart"])';
+        if (invalidCart.length != 0) {
+           $(window).load(function () {
+               $('#invalidCartModal').modal('show');
+           });
+
+            return;
+        }
+        var modalShown = '@(ViewBag.IntroModalShown)';
+        if (modalShown.length == 0) {
+           $(window).load(function () {
+               $('#introModal').modal('show');
+           });
+        }
+    });
+</script>

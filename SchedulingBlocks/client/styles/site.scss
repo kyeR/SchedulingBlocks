@@ -1,0 +1,150 @@
+﻿@import url(http://fonts.googleapis.com/css?family=Ubuntu:400,700);
+
+html {
+    background-color: #e2e2e2;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: url("/Images/content_bg.gif");
+    margin: 0;
+    padding: 0;
+}
+
+.header-section {
+    background: url("/Images/header_bg.jpg");
+    min-height: 120px;
+	.container-fluid {
+		padding-top: 30px;
+		padding-bottom: 30px;
+	}
+}
+
+.mini_cart {
+	.mini_cart_panel {
+		padding: 5px;
+	}
+}
+
+.mini_cart_separator {
+	border-top: 1px solid #cfcfcf;
+	margin: 10px 0;
+}
+
+@media (min-width: 992px)
+{
+	.view_cart {
+		border-right: 1px solid #cfcfcf;
+	}
+}
+
+.view_cart {
+}
+
+.footer-section {
+    height: 300px;
+    background-color: #44413f;
+    color: #fff;
+}
+
+#content {
+	max-width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.content {
+	margin:50px 0px 50px 0px;
+}
+
+.parsley-errors-list {
+	list-style-type:none;
+	color:red;
+}
+
+#baseball, #softball {
+	background-color: #d89a33;
+	border-color: #d89a33;
+}
+
+
+.location_day_view {
+	font-family: 'Ubuntu';
+	font-size: 12px;
+	min-height: 90px;
+	margin: 15px 0;
+
+	.day_view_title {
+		font-family: 'Ubuntu';
+		font-size: 16px;
+		font-weight: bold;
+	}
+}
+
+.day-labels div {
+	text-decoration:underline;
+	font-weight:bold;
+}
+
+.facility_section {
+	background-color: rgba(#cfcfcf, .3);
+	padding: 0 10px;
+}
+
+.facility_section_header {
+	font-family: 'Ubuntu';
+	color: #000;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+	padding: 10px 0;
+}
+
+.slot_section_title {
+	font-family: 'Ubuntu';
+	color: #e3b33d;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.slot_select {
+	font-family: 'Ubuntu';
+	font-size: 12px;
+	min-height: 90px;
+	margin: 15px 0;
+
+	&:hover,
+	&.slot_selected {
+		border-color: #e3b643;
+		background-color: #e3b643;
+	}
+
+	.slot_select_title {
+		font-family: 'Ubuntu';
+		font-size: 16px;
+		font-weight: bold;
+	}
+}
+
+.slot_reserved {
+	background-color: #dfdfdf !important;
+
+	.slot_select_title {
+	}
+}
+
+.slots_continue {
+	margin: 10px 0;
+}
+
+.xs_cart {
+	& tbody, & tfoot, & tr, & td {
+		display: block;
+	}
+}
+
+.cart_action {
+	display: block;
+	margin: 0 auto;
+}

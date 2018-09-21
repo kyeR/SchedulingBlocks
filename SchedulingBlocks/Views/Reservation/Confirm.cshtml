@@ -1,0 +1,103 @@
+﻿@using SchedulingBlocks.Models.AppDb
+@model Reservation
+
+
+@{
+    ViewBag.Title = "Confirm";
+    var itemIndex = 1;
+    var customerName = Model.CustomerInfo.FirstName + " " + Model.CustomerInfo.LastName;
+    //var reservationJson = Html.Raw(Json.Encode(Model));
+    var reservationId = Model.Id.ToString();
+    var reservationEmail = Model.CustomerInfo.Email;
+}
+
+<div class="container">
+    <div class="row content">
+        <div id="content">
+            <div class="row">
+                <div class="col-md-6 text-center"><h4>@customerName</h4></div>
+                <div class="col-md-6 text-center"><h4>@Model.CustomerInfo.Email</h4></div>
+            </div>
+            <table class="table table-striped visible-xs xs_cart">
+            <tbody>
+                @foreach (var slot in Model.ReservedSlots)
+                {
+                    var price = slot.GetSlotPrice(Model.PricePer);
+                    <tr>
+                        <td class="text-center">
+                            <h4>@slot.ToLineItemString() @@ $@price</h4>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td class="text-center"><strong><h4>Total $@Model.OrderTotal</h4></strong></td>
+                </tr>
+                <tr>
+                    <td><a href="/reservation/customerinfo" class="btn btn-warning btn-block"><i class="fa fa-angle-left"></i> Cancel </a></td>
+                </tr>
+            </tfoot>
+            </table>
+            <table class="table table-striped table-condensed hidden-xs">
+                <tbody>
+                    @foreach (var slot in Model.ReservedSlots)
+                    {
+                        var price = slot.GetSlotPrice(Model.PricePer); 
+                        <tr>
+                            <td>
+                                <h4>@slot.ToLineItemString()</h4>
+                            </td>
+                            <td class="text-right">$@price</td>
+                            <td>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td><a href="/" class="btn btn-warning"><i class="fa fa-angle-left"></i> Cancel</a></td>
+                        <td class="text-right"><b><h4>TOTAL: $@Model.OrderTotal</h4></b></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="col-md-4 col-md-offset-4 text-center">
+            <form id="confirm_form" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+               <input type="hidden" name="cmd" value="_cart">
+               <input type="hidden" name="business" value="kyerabon@gmail.com">
+               @for (var i = 0; i < Model.ReservedSlots.Count() ; i++)
+               {
+                   var slot = Model.ReservedSlots.ElementAt(i);
+                   var itemName = "item_name_" + itemIndex;
+                   var amountName = "amount_" + itemIndex;
+                   var quantityName = "quantity_" + itemIndex;
+                   var location = slot.Facility;
+                   var start = slot.StartTime.TimeOfDay;
+                   var end = slot.EndTime.TimeOfDay;
+                   var item = location + ": " + slot.DayOfReservation + " from " + start + " to " + end;
+                   var price = slot.GetSlotPrice(Model.PricePer);
+                   <input type="hidden" name="@itemName" value="@item">
+                   <input type="hidden" name="@amountName" value="@price">
+                   <input type="hidden" name="@quantityName" value="1">
+                   itemIndex++;
+               }
+               <input type="hidden" name="currency_code" value="USD">
+               <input type="hidden" name="cs" value="1">
+               <input type="hidden" name="cancel_return" value="http://www.moorebattingcage.com">
+               <input type="hidden" name="return" value="http://reserve.moorebattingcage.com/checkoutreturn">
+               <input type="hidden" name="upload" value="1">
+               <input type="hidden" name="notify_url" value="http://reserve.moorebattingcage.com/ordernotification">
+               <input type="hidden" name="custom" value="@Model.Id">
+               <input type="submit" name="submit" class="btn btn-success btn-block" value="Proceed To Payment" />
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        Confirm.Init("@reservationId", "@reservationEmail");
+    });
+</script>
+

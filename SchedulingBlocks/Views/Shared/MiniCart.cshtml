@@ -1,0 +1,25 @@
+﻿@model SchedulingBlocks.Models.CartModel
+
+@{
+    var slotCount = Model == null || Model.Slots == null ? 0 : Model.Slots.Count();
+}
+@if (slotCount > 0)
+{ 
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6 col-xs-offset-3 mini_cart_panel">
+                <div class="mini_cart_separator"></div>
+                <div class="row">
+                    <div class="col-md-6 view_cart">
+                        <a class="btn btn-block btn-success" href="/reservation/cart"><i class="fa fa-shopping-cart"></i> View Cart(@slotCount)</a>
+                    </div>
+                    <div class="visible-xs mini_cart_separator"></div>
+                    <div class="col-md-6">
+                        <a class="btn btn-block btn-success" href="/reservation/customerinfo"><i class="fa fa-credit-card"></i> Checkout</a>
+                    </div>
+                </div>
+                <div class="mini_cart_separator"></div>
+            </div>
+        </div>
+    </div>
+}

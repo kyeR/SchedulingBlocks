@@ -1,0 +1,50 @@
+﻿@using SchedulingBlocks.Models;
+@model List<Day>
+@{
+    Layout = null;
+}
+<br/>
+<div class="row text-center day-labels">
+    <div class="custom-col-1-7">Sunday</div>
+    <div class="custom-col-1-7">Monday</div>
+    <div class="custom-col-1-7">Tuesday</div>
+    <div class="custom-col-1-7">Wednesday</div>
+    <div class="custom-col-1-7">Thursday</div>
+    <div class="custom-col-1-7">Friday</div>
+    <div class="custom-col-1-7">Saturday</div>
+</div>
+@foreach (var week in Model.Select((day, inx) => new { day, inx })
+                               .GroupBy(x => x.inx / 7)
+                               .Select(g => g.Select(x => x.day)))
+{ 
+    <div class="row">
+        @foreach (var day in week)
+        {
+            var firstLocationDay = day.Locations.FirstOrDefault();
+            if (!day.Locations.Any(l => l.AvailableSlotStartTimes.Any()))
+            { 
+                <div class="custom-col-1-7">
+                    <a class="btn btn-default btn-block location_day_view day_full" data-date="@firstLocationDay.Day.Date.ToString("MM-dd-yyyy")">
+                        <span class="day_view_title">@firstLocationDay.Day.ToString("MMMM") @firstLocationDay.Day.Day</span><br />
+                        @day.Locations.Sum(l => l.AvailableSlotStartTimes.Count()) Available
+                    </a>
+                </div>
+            }
+            else
+            { 
+                <div class="custom-col-1-7">
+                    <a class="btn btn-primary btn-block location_day_view" data-date="@firstLocationDay.Day.Date.ToString("MM-dd-yyyy")">
+                        <span class="day_view_title">@firstLocationDay.Day.ToString("MMMM") @firstLocationDay.Day.Day</span><br />
+                        @day.Locations.Sum(l => l.AvailableSlotStartTimes.Count()) Available
+                    </a>
+                </div>
+            }
+        }
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        $(".mini_cart").show();
+    });
+</script>

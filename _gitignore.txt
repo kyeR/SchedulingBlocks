@@ -1,0 +1,5 @@
+/*.suo
+/BattingCages/bin/BattingCages.pdb
+/BattingCages/bin/BattingCages.dll
+/BattingCages/obj/Debug/BattingCages.pdb
+/BattingCages/obj/Debug/BattingCages.dll

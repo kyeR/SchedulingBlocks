@@ -1,0 +1,60 @@
+﻿@using SchedulingBlocks.Models;
+@model List<LocationDay>
+@{
+    Layout = null;
+    var sellingUnitMinutes = ViewBag.SellingUnitMinutes ?? 0;
+}
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <a class="btn btn-block btn-success slots_continue">Add To Cart</a>
+    </div>
+</div>
+@foreach (var row in Model.Select((facility, inx) => new { facility, inx })
+                .GroupBy(x => x.inx / 2)
+                .Select(g => g.Select(x => x.facility)))
+{ 
+    <div class="row">
+    @foreach (var facility in row)
+    {
+        <div class="col-md-12">
+            <div class="facility_section">
+                <div class="facility_section_header">@facility.Location.FacilityName</div>
+                @foreach (var subrow in facility.SlotStartTimes.Select((day, inx) => new { day, inx })
+                    .GroupBy(x => x.inx / 3)
+                    .Select(g => g.Select(x => x.day)))
+                {
+                    <div class="row">
+                        @foreach (var slot in subrow)
+                        {
+                            if (facility.AvailableSlotStartTimes.Contains(slot))
+                            {
+                                <div class="col-md-4">
+                                    <a class="btn btn-default btn-block slot_select start_select" data-slot-facility="@facility.Location.FacilityName" data-slot-start="@slot.ToString()" data-slot-end="@slot.AddMinutes(sellingUnitMinutes).ToString()">
+                                        <span class="slot_select_title">@slot.ToString("hh:mm tt")</span>
+                                    </a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-md-4">
+                                    <a class="btn btn-default btn-block slot_select slot_reserved disabled" data-slot-facility="@facility.Location.FacilityName" data-slot-start="@slot.ToString()" data-slot-end="@slot.AddMinutes(sellingUnitMinutes).ToString()">
+                                        <span class="slot_select_title">@slot.ToString("hh:mm")</span>
+                                    </a>
+                                </div>
+                            }
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        Slots.Init();
+
+        $(".mini_cart").hide();
+    });
+</script>

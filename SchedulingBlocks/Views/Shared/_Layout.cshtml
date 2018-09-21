@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Moore Batting Cage - Reserve</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+        @Styles.Render("~/client/css")
+        @Scripts.Render("~/bundles/jquery")
+    </head>
+    <body>
+        <div class="header-section">
+            <nav class="navbar" role="navigation">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/">
+                            <img src="/Images/logo.png"/>
+                        </a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav pull-right">
+                            <li><a href="/">HOME</a></li>
+                            <li class="hidden-xs hidden-sm"><img src="/Images/menu-separator.png"/></li>
+                            <li><a href="/">ABOUT US</a></li>
+                            <li class="hidden-xs hidden-sm"><img src="/Images/menu-separator.png"/></li>
+                            <li><a href="/">HOW IT WORKS</a></li>
+                            <li class="hidden-xs hidden-sm"><img src="/Images/menu-separator.png"/></li>
+                            <li><a href="/">COSTS</a></li>
+                            <li class="hidden-xs hidden-sm"><img src="/Images/menu-separator.png"/></li>
+                            <li class="active"><a href="/">SCHEDULE</a></li>
+                            <li class="hidden-xs hidden-sm"><img src="/Images/menu-separator.png"/></li>
+                            <li><a href="#">HELP</a></li>
+                            <li class="hidden-xs hidden-sm"><img src="/Images/menu-separator.png"/></li>
+                            <li><a href="#">SITEMAP</a></li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div>  
+            </nav>
+        </div>
+        <div style="clear:both;"></div>
+        <div>
+            @RenderBody()
+        </div>
+        <div class="footer-section">
+            <div class="container">
+                <div class="float-left">
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/parsley")
+        @Scripts.Render("~/client/js")
+    </body>
+</html>
